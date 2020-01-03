@@ -3,8 +3,11 @@ resource "aws_instance" "web" {
   count         = var.instance_count
   instance_type = "t2.micro"
   user_data = templatefile("${path.module}/entrypoint.tpl",{})
-  vpc_security_group_ids = [
-    aws_security_group.security.id]
+  associate_public_ip_address = true
+
+  security_groups = [aws_security_group.security.id]
+  subnet_id = "${element(var.subnet_id, count.index)}"
+
   tags = {
     Name = "${var.service}-${count.index + 1}"
   }
@@ -13,6 +16,7 @@ resource "aws_instance" "web" {
 
 resource "aws_security_group" "security" {
   name = "${var.service}-security"
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 80
