@@ -15,7 +15,8 @@ module "ec2" {
   source = "./ec2"
   instance_count = 1
   service = local.service
-  subnet_id = module.vpc.this_subnet_ids
+  subnet_a_id = module.vpc.this_subnet_a_id
+  subnet_b_id = module.vpc.this_subnet_b_id
   vpc_id = module.vpc.this_vpc_id
 }
 

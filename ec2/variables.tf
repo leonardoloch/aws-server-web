@@ -8,9 +8,14 @@ variable "service" {
   type        = string
 }
 
-variable "subnet_id" {
-  description = "The subnet id correspondent to ec2"
-  type        = list
+variable "subnet_a_id" {
+  description = "The subnet id a"
+  type        = string
+}
+
+variable "subnet_b_id" {
+  description = "The subnet id b"
+  type        = string
 }
 
 variable "vpc_id" {

@@ -1,5 +1,7 @@
 # Deploy
 .terraform/
+terraform.tfstate
+terraform.tfstate.backup
 
 
 # Provided default Pycharm Run/Debug Configurations should be tracked by git
