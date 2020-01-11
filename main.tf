@@ -3,12 +3,25 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+data "aws_region" "current" {}
+
 locals {
   service = "ServerWeb"
+  aws_region = data.aws_region.current.name
 }
+
 
 module "ec2" {
   source = "./ec2"
-  instance_count = 2
+  instance_count = 1
   service = local.service
+  subnet_a_id = module.vpc.this_subnet_a_id
+  subnet_b_id = module.vpc.this_subnet_b_id
+  vpc_id = module.vpc.this_vpc_id
+}
+
+module "vpc" {
+  source     = "./vpc"
+  service    = local.service
+  aws_region = local.aws_region
 }
